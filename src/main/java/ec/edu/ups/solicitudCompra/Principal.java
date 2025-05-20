@@ -1,13 +1,12 @@
 package ec.edu.ups.solicitudCompra;
 
-
-import ec.edu.ups.solicitudCompra.controller.ProveedorController;
-import ec.edu.ups.solicitudCompra.view.MenuPrincipalView;
+import ec.edu.ups.solicitudCompra.view.MenuPrincipal;
 
 public class Principal {
     public static void main(String[] args) {
-        ProveedorController proveedorController = new ProveedorController();
-        MenuPrincipalView menu = new MenuPrincipalView(proveedorController);
-        menu.setVisible(true);
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            MenuPrincipal ventana = new MenuPrincipal();
+            ventana.setVisible(true);
+        });
     }
 }
