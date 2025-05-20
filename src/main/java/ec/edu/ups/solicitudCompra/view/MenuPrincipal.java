@@ -2,8 +2,6 @@ package ec.edu.ups.solicitudCompra.view;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class MenuPrincipal extends JFrame {
     private CardLayout cardLayout;
@@ -16,7 +14,6 @@ public class MenuPrincipal extends JFrame {
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
-        // Panel de botones del menú a la izquierda
         JPanel panelMenu = new JPanel(new GridLayout(11, 1));
         String[] opciones = {
                 "1. Registrar proveedor",
@@ -32,33 +29,31 @@ public class MenuPrincipal extends JFrame {
                 "11. Calcular total de solicitud"
         };
 
-        // Panel que cambiará con CardLayout
         panelCentral = new JPanel();
         cardLayout = new CardLayout();
         panelCentral.setLayout(cardLayout);
 
-        // Crear todos los paneles para las acciones
         for (int i = 0; i < opciones.length; i++) {
             String opcion = opciones[i];
             JButton boton = new JButton(opcion);
             int indice = i + 1;
             panelMenu.add(boton);
 
-            // Crear panel de acción
             JPanel panelOpcion = new JPanel();
             panelOpcion.add(new JLabel("Pantalla para: " + opcion));
             panelCentral.add(panelOpcion, "opcion" + indice);
 
-            // Acción del botón para cambiar de vista
             boton.addActionListener(e -> cardLayout.show(panelCentral, "opcion" + indice));
         }
 
-        add(panelMenu, BorderLayout.WEST);      // Menú a la izquierda
-        add(panelCentral, BorderLayout.CENTER); // Panel de contenido principal
+        add(panelMenu, BorderLayout.WEST);
+        add(panelCentral, BorderLayout.CENTER);
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new MenuPrincipal().setVisible(true));
+        MenuPrincipal menu = new MenuPrincipal();
+        menu.setVisible(true);
     }
 }
+
 
