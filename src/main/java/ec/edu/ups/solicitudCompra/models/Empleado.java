@@ -1,5 +1,4 @@
 package ec.edu.ups.solicitudCompra.models;
-import ec.edu.ups.solicitudCompra.persona.Persona;
 
 public class Empleado extends Persona {
     private Departamento departamento;

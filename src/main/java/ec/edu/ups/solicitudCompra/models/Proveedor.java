@@ -1,5 +1,4 @@
 package ec.edu.ups.solicitudCompra.models;
-import ec.edu.ups.solicitudCompra.persona.Persona;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +9,9 @@ public class Proveedor extends  Persona {
     public Proveedor(String id, String nombre, String apellido, String telefono, String direccion) {
         super(id, nombre, apellido, telefono, direccion);
         this.productos = new ArrayList<>();
+    }
+
+    public Proveedor(String id, String nombre, String telefono, String direccion) {
     }
 
     public List<Producto> getProductos() {

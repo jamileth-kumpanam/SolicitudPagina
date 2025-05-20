@@ -1,4 +1,4 @@
-package ec.edu.ups.solicitudCompra.persona;
+package ec.edu.ups.solicitudCompra.models;
 
 public abstract class Persona {
     protected String id;
