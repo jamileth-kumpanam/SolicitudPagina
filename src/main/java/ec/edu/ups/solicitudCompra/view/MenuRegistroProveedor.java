@@ -4,7 +4,8 @@ import ec.edu.ups.solicitudCompra.controller.ProveedorController;
 import ec.edu.ups.solicitudCompra.models.Proveedor;
 
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MenuRegistroProveedor extends Frame {
     private TextField txtId, txtNombre, txtTelefono, txtDireccion;
@@ -15,43 +16,43 @@ public class MenuRegistroProveedor extends Frame {
         this.proveedorController = proveedorController;
 
         setTitle("Registrar Proveedor");
-        setSize(300, 300);
+        setSize(350, 300);
         setLayout(null);
 
         Label lblId = new Label("ID:");
-        lblId.setBounds(20, 20, 100, 25);
+        lblId.setBounds(20, 40, 100, 25);
         add(lblId);
 
         txtId = new TextField();
-        txtId.setBounds(120, 20, 150, 25);
+        txtId.setBounds(120, 40, 200, 25);
         add(txtId);
 
         Label lblNombre = new Label("Nombre:");
-        lblNombre.setBounds(20, 60, 100, 25);
+        lblNombre.setBounds(20, 80, 100, 25);
         add(lblNombre);
 
         txtNombre = new TextField();
-        txtNombre.setBounds(120, 60, 150, 25);
+        txtNombre.setBounds(120, 80, 200, 25);
         add(txtNombre);
 
         Label lblTelefono = new Label("Teléfono:");
-        lblTelefono.setBounds(20, 100, 100, 25);
+        lblTelefono.setBounds(20, 120, 100, 25);
         add(lblTelefono);
 
         txtTelefono = new TextField();
-        txtTelefono.setBounds(120, 100, 150, 25);
+        txtTelefono.setBounds(120, 120, 200, 25);
         add(txtTelefono);
 
         Label lblDireccion = new Label("Dirección:");
-        lblDireccion.setBounds(20, 140, 100, 25);
+        lblDireccion.setBounds(20, 160, 100, 25);
         add(lblDireccion);
 
         txtDireccion = new TextField();
-        txtDireccion.setBounds(120, 140, 150, 25);
+        txtDireccion.setBounds(120, 160, 200, 25);
         add(txtDireccion);
 
         btnGuardar = new Button("Guardar");
-        btnGuardar.setBounds(100, 200, 100, 30);
+        btnGuardar.setBounds(120, 210, 100, 30);
         add(btnGuardar);
 
         btnGuardar.addActionListener(new ActionListener() {
@@ -61,42 +62,24 @@ public class MenuRegistroProveedor extends Frame {
             }
         });
 
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent we) {
-                dispose();
-            }
-        });
-
         setVisible(true);
     }
 
     private void guardarProveedor() {
-        String id = txtId.getText();
-        String nombre = txtNombre.getText();
-        String telefono = txtTelefono.getText();
-        String direccion = txtDireccion.getText();
+        String id = txtId.getText().trim();
+        String nombre = txtNombre.getText().trim();
+        String telefono = txtTelefono.getText().trim();
+        String direccion = txtDireccion.getText().trim();
 
         if (id.isEmpty() || nombre.isEmpty() || telefono.isEmpty() || direccion.isEmpty()) {
-            showMessage("Todos los campos son obligatorios");
+            showDialog("Todos los campos son obligatorios.");
             return;
         }
 
         Proveedor proveedor = new Proveedor(id, nombre, telefono, direccion);
         proveedorController.agregarProveedor(proveedor);
-        showMessage("Proveedor registrado correctamente");
+        showDialog("Proveedor registrado correctamente.");
         limpiarCampos();
-    }
-
-    private void showMessage(String message) {
-        Dialog dialog = new Dialog(this, "Mensaje", true);
-        dialog.setLayout(new FlowLayout());
-        dialog.setSize(250, 100);
-        dialog.add(new Label(message));
-        Button ok = new Button("OK");
-        ok.addActionListener(e -> dialog.setVisible(false));
-        dialog.add(ok);
-        dialog.setLocationRelativeTo(this);
-        dialog.setVisible(true);
     }
 
     private void limpiarCampos() {
@@ -104,5 +87,17 @@ public class MenuRegistroProveedor extends Frame {
         txtNombre.setText("");
         txtTelefono.setText("");
         txtDireccion.setText("");
+    }
+
+    private void showDialog(String mensaje) {
+        Dialog dialogo = new Dialog(this, "Mensaje", true);
+        dialogo.setLayout(new FlowLayout());
+        dialogo.setSize(250, 100);
+        dialogo.add(new Label(mensaje));
+        Button ok = new Button("OK");
+        ok.addActionListener(e -> dialogo.setVisible(false));
+        dialogo.add(ok);
+        dialogo.setLocationRelativeTo(this);
+        dialogo.setVisible(true);
     }
 }

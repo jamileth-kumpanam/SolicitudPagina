@@ -4,8 +4,8 @@ public class Producto {
     private String id;
     private String nombre;
     private double precio;
-    private UnidadMedida unidad;
-    private Proveedor proveedor;
+    private UnidadMedida unidad;     // Nuevo campo para unidad
+    private Proveedor proveedor;    // Nuevo campo para proveedor
 
     public Producto(String id, String nombre, double precio, UnidadMedida unidad, Proveedor proveedor) {
         this.id = id;
@@ -37,6 +37,12 @@ public class Producto {
 
     @Override
     public String toString() {
-        return "ID: " + id + ", Nombre: " + nombre + ", Precio: " + precio + ", Unidad: " + unidad;
+        return "Producto{" +
+                "ID='" + id + '\'' +
+                ", Nombre='" + nombre + '\'' +
+                ", Precio=" + precio +
+                ", Unidad=" + unidad +
+                ", Proveedor=" + proveedor.getNombre() +
+                '}';
     }
 }

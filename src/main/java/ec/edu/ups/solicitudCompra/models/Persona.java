@@ -1,6 +1,6 @@
 package ec.edu.ups.solicitudCompra.models;
 
-public class Persona {
+public abstract class Persona {
     private String id;
     private String nombre;
     private String apellido;
@@ -37,7 +37,12 @@ public class Persona {
 
     @Override
     public String toString() {
-        return "ID: " + id + ", Nombre: " + nombre + " " + apellido + ", Teléfono: " + telefono + ", Dirección: " + direccion;
+        return "Persona{" +
+                "ID='" + id + '\'' +
+                ", Nombre='" + nombre + '\'' +
+                ", Apellido='" + apellido + '\'' +
+                '}';
     }
 }
+
 

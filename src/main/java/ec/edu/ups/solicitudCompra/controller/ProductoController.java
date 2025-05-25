@@ -8,14 +8,17 @@ import java.util.stream.Collectors;
 
 public class ProductoController {
 
-    private List<Producto> listaProductos;
+    private final List<Producto> listaProductos;
 
     public ProductoController() {
-        listaProductos = new ArrayList<>();
+        this.listaProductos = new ArrayList<>();
     }
 
     public void agregarProducto(Producto producto) {
-        listaProductos.add(producto);
+        if (producto != null) {
+            listaProductos.add(producto);
+            System.out.println("Producto agregado: " + producto);
+        }
     }
 
     public Producto buscarPorId(String id) {
@@ -34,7 +37,8 @@ public class ProductoController {
     }
 
     public List<Producto> listarProductos() {
-        return listaProductos;
+        return new ArrayList<>(listaProductos);
     }
 }
+
 
