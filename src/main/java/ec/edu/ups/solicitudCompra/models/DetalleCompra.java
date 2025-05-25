@@ -19,6 +19,6 @@ public class DetalleCompra {
 
     @Override
     public String toString() {
-        return "Producto: " + producto.getNombre() + ", Cantidad: " + cantidad;
+        return producto.getNombre() + " x " + cantidad + " " + producto.getUnidad();
     }
 }

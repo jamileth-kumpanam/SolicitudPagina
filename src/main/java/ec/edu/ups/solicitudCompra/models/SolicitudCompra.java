@@ -1,72 +1,80 @@
 package ec.edu.ups.solicitudCompra.models;
 
-import java.util.ArrayList;
-import java.util.List;
+public class SolicitudCompra {
 
-public class SolicitudCompra implements Calculable, Estadoable {
     private String numero;
     private Proveedor proveedor;
-    private List<DetalleCompra> detalles;
-    private EstadoSolicitud estado;
+    private Producto producto;
+    private int cantidad;
+    private String estado;
 
-    public SolicitudCompra(String numero, Proveedor proveedor) {
+    public SolicitudCompra(String numero, Proveedor proveedor, Producto producto, int cantidad) {
         this.numero = numero;
         this.proveedor = proveedor;
-        this.detalles = new ArrayList<>();
-        this.estado = EstadoSolicitud.PENDIENTE;
-    }
-
-    public void agregarDetalle(Producto producto, int cantidad) {
-        detalles.add(new DetalleCompra(producto, cantidad));
+        this.producto = producto;
+        this.cantidad = cantidad;
     }
 
     public String getNumero() {
         return numero;
     }
 
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
     public Proveedor getProveedor() {
         return proveedor;
     }
 
-    public List<DetalleCompra> getDetalles() {
-        return detalles;
+    public void setProveedor(Proveedor proveedor) {
+        this.proveedor = proveedor;
     }
 
-    public EstadoSolicitud getEstado() {
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getEstado() {
         return estado;
-    }
-
-    public void cambiarEstado(EstadoSolicitud nuevoEstado) {
-        this.estado = nuevoEstado;
-    }
-
-    @Override
-    public void aprobar() {
-        cambiarEstado(EstadoSolicitud.APROBADA);
-    }
-
-    @Override
-    public void rechazar() {
-        cambiarEstado(EstadoSolicitud.RECHAZADA);
-    }
-
-    @Override
-    public void enviarRevision() {
-        cambiarEstado(EstadoSolicitud.EN_REVISION);
-    }
-
-    @Override
-    public double calcularCosto() {
-        double total = 0;
-        for (DetalleCompra detalle : detalles) {
-            total += detalle.getProducto().getPrecio() * detalle.getCantidad();
-        }
-        return total;
     }
 
     @Override
     public String toString() {
-        String nombreProveedor = (proveedor != null) ? proveedor.getNombre() : "Sin proveedor";
-        return "Número: " + numero + ", Proveedor: " + nombreProveedor + ", Estado: " + estado + ", Total: " + calcularCosto();
+        return "SolicitudCompra{" +
+                "numero='" + numero + '\'' +
+                ", proveedor=" + (proveedor != null ? proveedor.getNombre() : "null") +
+                ", producto=" + (producto != null ? producto.getNombre() : "null") +
+                ", cantidad=" + cantidad +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        SolicitudCompra that = (SolicitudCompra) obj;
+        return numero != null && numero.equalsIgnoreCase(that.numero);
+    }
+
+    @Override
+    public int hashCode() {
+        return numero != null ? numero.toLowerCase().hashCode() : 0;
     }
 }

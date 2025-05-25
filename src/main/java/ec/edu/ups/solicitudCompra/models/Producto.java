@@ -5,7 +5,7 @@ public class Producto {
     private String nombre;
     private double precio;
     private UnidadMedida unidad;
-    private Proveedor proveedor; // Solo referencia unidireccional
+    private Proveedor proveedor;
 
     public Producto(String id, String nombre, double precio, UnidadMedida unidad, Proveedor proveedor) {
         this.id = id;

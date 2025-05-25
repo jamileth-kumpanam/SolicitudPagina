@@ -12,6 +12,8 @@ public class Proveedor extends  Persona {
     }
 
     public Proveedor(String id, String nombre, String telefono, String direccion) {
+        super(id, nombre, "", telefono, direccion);
+        this.productos = new ArrayList<>();
     }
 
     public List<Producto> getProductos() {
@@ -26,6 +28,6 @@ public class Proveedor extends  Persona {
 
     @Override
     public String toString() {
-        return super.toString() + ", Teléfono: " + telefono + ", Dirección: " + direccion;
+        return super.toString() + ", Teléfono: " + getTelefono() + ", Dirección: " + getDireccion();
     }
 }

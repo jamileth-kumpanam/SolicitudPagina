@@ -1,9 +1,8 @@
 package ec.edu.ups.solicitudCompra.models;
 
 public enum EstadoSolicitud {
-    SOLICITADA,
+    PENDIENTE,
     EN_REVISION,
     APROBADA,
-    RECHAZADA,
-    PENDIENTE
+    RECHAZADA
 }
