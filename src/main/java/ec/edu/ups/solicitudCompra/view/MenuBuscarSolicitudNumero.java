@@ -145,7 +145,7 @@ public class MenuBuscarSolicitudNumero extends Frame {
         double total = solicitud.getProducto().getPrecio() * solicitud.getCantidad();
         lblTotal.setText("$" + String.format("%.2f", total));
 
-        mostrarMensaje("Solicitud encontrada y cargada.");
+        mostrarMensaje("Solicitud encontrada");
     }
 
     private void mostrarMensaje(String mensaje) {

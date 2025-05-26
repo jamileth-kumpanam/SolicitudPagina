@@ -19,7 +19,7 @@ public class MenuPrincipalView extends Frame {
         setLayout(new GridLayout(11, 1));
         setBackground(Color.WHITE);
 
-        // Botones del menú
+        //Botoneees
         Button[] botones = new Button[11];
         String[] textos = {
                 "1. Registrar Proveedor",
@@ -52,7 +52,7 @@ public class MenuPrincipalView extends Frame {
         botones[9].addActionListener(e -> new MenuAprobarRechazarSolicitud(solicitudController));
         botones[10].addActionListener(e -> new MenuCalcularTotalSolicitud(solicitudController));
 
-        // Cerrar ventana
+
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 System.exit(0);
