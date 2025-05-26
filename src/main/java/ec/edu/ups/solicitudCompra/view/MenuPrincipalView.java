@@ -40,7 +40,6 @@ public class MenuPrincipalView extends Frame {
             add(botones[i]);
         }
 
-        // Asignar eventos
         botones[0].addActionListener(e -> new MenuRegistroProveedor(proveedorController));
         botones[1].addActionListener(e -> new MenuRegistrarProducto(proveedorController, productoController));
         botones[2].addActionListener(e -> new MenuRegistrarSolicitudCompra(proveedorController, productoController, solicitudController));
@@ -49,7 +48,7 @@ public class MenuPrincipalView extends Frame {
         botones[5].addActionListener(e -> new MenuListarSolicitudCompra(solicitudController));
         botones[6].addActionListener(e -> new MenuBuscarProveedorID(proveedorController));
         botones[7].addActionListener(e -> new MenuBuscarProductoNombre(productoController));
-        botones[8].addActionListener(e -> new MenuBuscarSolicitudNumero(solicitudController));
+        botones[8].addActionListener(e -> new MenuBuscarSolicitudNumero(solicitudController, proveedorController, productoController));
         botones[9].addActionListener(e -> new MenuAprobarRechazarSolicitud(solicitudController));
         botones[10].addActionListener(e -> new MenuCalcularTotalSolicitud(solicitudController));
 

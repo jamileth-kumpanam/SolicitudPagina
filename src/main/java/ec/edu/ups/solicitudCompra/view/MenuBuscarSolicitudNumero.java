@@ -16,18 +16,21 @@ public class MenuBuscarSolicitudNumero extends Frame {
 
     private TextField txtNumeroSolicitud, txtCantidad;
     private Choice choiceProveedores, choiceProductos;
-    private Button btnRegistrar;
+    private Button btnBuscar;
+    private Label lblTotal;
     private ProveedorController proveedorController;
     private ProductoController productoController;
-    private SolicitudController solicitudController; // <-- agregar referencia
+    private SolicitudController solicitudController;
 
-    public MenuBuscarSolicitudNumero(SolicitudController solicitudController) { // <-- recibe SolicitudController
+    public MenuBuscarSolicitudNumero(SolicitudController solicitudController,
+                                     ProveedorController proveedorController,
+                                     ProductoController productoController) {
+        this.solicitudController = solicitudController;
         this.proveedorController = proveedorController;
         this.productoController = productoController;
-        this.solicitudController = solicitudController;
 
-        setTitle("Registrar Solicitud de Compra");
-        setSize(450, 350);
+        setTitle("Buscar Solicitud por Número");
+        setSize(450, 400);
         setLayout(null);
         setVisible(true);
 
@@ -53,6 +56,7 @@ public class MenuBuscarSolicitudNumero extends Frame {
 
         txtCantidad = new TextField();
         txtCantidad.setBounds(160, 130, 230, 25);
+        txtCantidad.setEditable(false); // solo lectura
         add(txtCantidad);
 
         Label lblProducto = new Label("Producto:");
@@ -63,11 +67,19 @@ public class MenuBuscarSolicitudNumero extends Frame {
         choiceProductos.setBounds(160, 170, 230, 25);
         add(choiceProductos);
 
-        btnRegistrar = new Button("Registrar Solicitud");
-        btnRegistrar.setBounds(140, 220, 160, 35);
-        add(btnRegistrar);
+        Label lblTotalTexto = new Label("Total:");
+        lblTotalTexto.setBounds(30, 210, 120, 25);
+        add(lblTotalTexto);
 
-        // cerrar con la X
+        lblTotal = new Label("$0.00");
+        lblTotal.setBounds(160, 210, 230, 25);
+        lblTotal.setFont(new Font("Arial", Font.BOLD, 14));
+        add(lblTotal);
+
+        btnBuscar = new Button("Buscar Solicitud");
+        btnBuscar.setBounds(140, 260, 160, 35);
+        add(btnBuscar);
+
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 dispose();
@@ -77,10 +89,10 @@ public class MenuBuscarSolicitudNumero extends Frame {
         cargarProveedores();
         cargarProductos();
 
-        btnRegistrar.addActionListener(new ActionListener() {
+        btnBuscar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                registrarSolicitud();
+                buscarSolicitudPorNumero();
             }
         });
     }
@@ -99,41 +111,41 @@ public class MenuBuscarSolicitudNumero extends Frame {
         }
     }
 
-    private void registrarSolicitud() {
+    private void buscarSolicitudPorNumero() {
         String numero = txtNumeroSolicitud.getText().trim();
-        String cantidadStr = txtCantidad.getText().trim();
-        String proveedorStr = choiceProveedores.getSelectedItem();
-        String productoStr = choiceProductos.getSelectedItem();
 
-        if (numero.isEmpty() || cantidadStr.isEmpty() || proveedorStr == null || productoStr == null) {
-            mostrarMensaje("Todos los campos son obligatorios.");
+        if (numero.isEmpty()) {
+            mostrarMensaje("Ingrese un número de solicitud.");
             return;
         }
 
-        int cantidad;
-        try {
-            cantidad = Integer.parseInt(cantidadStr);
-        } catch (NumberFormatException e) {
-            mostrarMensaje("Cantidad inválida.");
+        SolicitudCompra solicitud = solicitudController.buscarPorNumero(numero);
+
+        if (solicitud == null) {
+            mostrarMensaje("Solicitud no encontrada.");
             return;
         }
 
-        String proveedorId = proveedorStr.split(" - ")[0];
-        String productoId = productoStr.split(" - ")[0];
+        txtCantidad.setText(String.valueOf(solicitud.getCantidad()));
 
-        Proveedor proveedor = proveedorController.buscarPorId(proveedorId);
-        Producto producto = productoController.buscarPorId(productoId);
-
-        if (proveedor == null || producto == null) {
-            mostrarMensaje("Proveedor o producto no encontrados.");
-            return;
+        for (int i = 0; i < choiceProveedores.getItemCount(); i++) {
+            if (choiceProveedores.getItem(i).startsWith(solicitud.getProveedor().getId())) {
+                choiceProveedores.select(i);
+                break;
+            }
         }
 
-        SolicitudCompra solicitud = new SolicitudCompra(numero, proveedor, producto, cantidad);
-        solicitudController.agregarSolicitud(solicitud);  // <-- CORRECCIÓN importante
+        for (int i = 0; i < choiceProductos.getItemCount(); i++) {
+            if (choiceProductos.getItem(i).startsWith(solicitud.getProducto().getId())) {
+                choiceProductos.select(i);
+                break;
+            }
+        }
 
-        mostrarMensaje("¡Solicitud registrada exitosamente!");
-        limpiarCampos();
+        double total = solicitud.getProducto().getPrecio() * solicitud.getCantidad();
+        lblTotal.setText("$" + String.format("%.2f", total));
+
+        mostrarMensaje("Solicitud encontrada y cargada.");
     }
 
     private void mostrarMensaje(String mensaje) {
@@ -147,10 +159,4 @@ public class MenuBuscarSolicitudNumero extends Frame {
         dialogo.setLocationRelativeTo(this);
         dialogo.setVisible(true);
     }
-
-    private void limpiarCampos() {
-        txtNumeroSolicitud.setText("");
-        txtCantidad.setText("");
-    }
 }
-

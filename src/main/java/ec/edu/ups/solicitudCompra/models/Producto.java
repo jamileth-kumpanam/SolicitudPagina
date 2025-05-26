@@ -4,8 +4,8 @@ public class Producto {
     private String id;
     private String nombre;
     private double precio;
-    private UnidadMedida unidad;     // Nuevo campo para unidad
-    private Proveedor proveedor;    // Nuevo campo para proveedor
+    private UnidadMedida unidad;
+    private Proveedor proveedor;
 
     public Producto(String id, String nombre, double precio, UnidadMedida unidad, Proveedor proveedor) {
         this.id = id;

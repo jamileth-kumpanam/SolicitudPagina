@@ -16,25 +16,21 @@ public class MenuRegistroProveedor extends Frame {
         setSize(350, 300);
         setLayout(null);
 
-        // Campos de texto
         txtId = new TextField();
         txtNombre = new TextField();
         txtTelefono = new TextField();
         txtDireccion = new TextField();
 
-        // Posicionamiento
         txtId.setBounds(120, 40, 200, 25);
         txtNombre.setBounds(120, 80, 200, 25);
         txtTelefono.setBounds(120, 120, 200, 25);
         txtDireccion.setBounds(120, 160, 200, 25);
 
-        // Etiquetas
         add(new Label("ID:")).setBounds(20, 40, 100, 25);
         add(new Label("Nombre:")).setBounds(20, 80, 100, 25);
         add(new Label("Teléfono:")).setBounds(20, 120, 100, 25);
         add(new Label("Dirección:")).setBounds(20, 160, 100, 25);
 
-        // Botón Guardar
         btnGuardar = new Button("Guardar");
         btnGuardar.setBounds(120, 210, 100, 30);
         btnGuardar.addActionListener(e -> guardarProveedor());
@@ -45,7 +41,6 @@ public class MenuRegistroProveedor extends Frame {
         add(txtDireccion);
         add(btnGuardar);
 
-        // Cerrar ventana
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 dispose();
