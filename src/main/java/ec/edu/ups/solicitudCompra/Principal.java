@@ -1,10 +1,10 @@
 package ec.edu.ups.solicitudCompra;
 
-import ec.edu.ups.solicitudCompra.view.MenuPrincipal;
+import ec.edu.ups.solicitudCompra.view.MenuPrincipalView;
 
 public class Principal {
     public static void main(String[] args) {
-        new MenuPrincipal();
+        new MenuPrincipalView(); // Inicia la aplicación
     }
 }
 

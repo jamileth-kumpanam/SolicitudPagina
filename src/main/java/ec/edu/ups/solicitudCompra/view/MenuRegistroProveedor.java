@@ -2,63 +2,53 @@ package ec.edu.ups.solicitudCompra.view;
 
 import ec.edu.ups.solicitudCompra.controller.ProveedorController;
 import ec.edu.ups.solicitudCompra.models.Proveedor;
-
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 public class MenuRegistroProveedor extends Frame {
     private TextField txtId, txtNombre, txtTelefono, txtDireccion;
     private Button btnGuardar;
-    private ProveedorController proveedorController;
+    private ProveedorController controller;
 
-    public MenuRegistroProveedor(ProveedorController proveedorController) {
-        this.proveedorController = proveedorController;
-
+    public MenuRegistroProveedor(ProveedorController controller) {
+        this.controller = controller;
         setTitle("Registrar Proveedor");
         setSize(350, 300);
         setLayout(null);
 
-        Label lblId = new Label("ID:");
-        lblId.setBounds(20, 40, 100, 25);
-        add(lblId);
-
+        // Campos de texto
         txtId = new TextField();
-        txtId.setBounds(120, 40, 200, 25);
-        add(txtId);
-
-        Label lblNombre = new Label("Nombre:");
-        lblNombre.setBounds(20, 80, 100, 25);
-        add(lblNombre);
-
         txtNombre = new TextField();
-        txtNombre.setBounds(120, 80, 200, 25);
-        add(txtNombre);
-
-        Label lblTelefono = new Label("Teléfono:");
-        lblTelefono.setBounds(20, 120, 100, 25);
-        add(lblTelefono);
-
         txtTelefono = new TextField();
-        txtTelefono.setBounds(120, 120, 200, 25);
-        add(txtTelefono);
-
-        Label lblDireccion = new Label("Dirección:");
-        lblDireccion.setBounds(20, 160, 100, 25);
-        add(lblDireccion);
-
         txtDireccion = new TextField();
-        txtDireccion.setBounds(120, 160, 200, 25);
-        add(txtDireccion);
 
+        // Posicionamiento
+        txtId.setBounds(120, 40, 200, 25);
+        txtNombre.setBounds(120, 80, 200, 25);
+        txtTelefono.setBounds(120, 120, 200, 25);
+        txtDireccion.setBounds(120, 160, 200, 25);
+
+        // Etiquetas
+        add(new Label("ID:")).setBounds(20, 40, 100, 25);
+        add(new Label("Nombre:")).setBounds(20, 80, 100, 25);
+        add(new Label("Teléfono:")).setBounds(20, 120, 100, 25);
+        add(new Label("Dirección:")).setBounds(20, 160, 100, 25);
+
+        // Botón Guardar
         btnGuardar = new Button("Guardar");
         btnGuardar.setBounds(120, 210, 100, 30);
+        btnGuardar.addActionListener(e -> guardarProveedor());
+
+        add(txtId);
+        add(txtNombre);
+        add(txtTelefono);
+        add(txtDireccion);
         add(btnGuardar);
 
-        btnGuardar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                guardarProveedor();
+        // Cerrar ventana
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                dispose();
             }
         });
 
@@ -66,20 +56,32 @@ public class MenuRegistroProveedor extends Frame {
     }
 
     private void guardarProveedor() {
-        String id = txtId.getText().trim();
-        String nombre = txtNombre.getText().trim();
-        String telefono = txtTelefono.getText().trim();
-        String direccion = txtDireccion.getText().trim();
+        String id = txtId.getText();
+        String nombre = txtNombre.getText();
+        String telefono = txtTelefono.getText();
+        String direccion = txtDireccion.getText();
 
         if (id.isEmpty() || nombre.isEmpty() || telefono.isEmpty() || direccion.isEmpty()) {
-            showDialog("Todos los campos son obligatorios.");
+            mostrarMensaje("Todos los campos son obligatorios.");
             return;
         }
 
         Proveedor proveedor = new Proveedor(id, nombre, telefono, direccion);
-        proveedorController.agregarProveedor(proveedor);
-        showDialog("Proveedor registrado correctamente.");
+        controller.agregarProveedor(proveedor);
+        mostrarMensaje("Proveedor registrado exitosamente.");
         limpiarCampos();
+    }
+
+    private void mostrarMensaje(String mensaje) {
+        Dialog dialog = new Dialog(this, "Mensaje", true);
+        dialog.setLayout(new FlowLayout());
+        dialog.add(new Label(mensaje));
+        Button ok = new Button("OK");
+        ok.addActionListener(e -> dialog.dispose());
+        dialog.add(ok);
+        dialog.setSize(250, 100);
+        dialog.setLocationRelativeTo(this);
+        dialog.setVisible(true);
     }
 
     private void limpiarCampos() {
@@ -87,17 +89,5 @@ public class MenuRegistroProveedor extends Frame {
         txtNombre.setText("");
         txtTelefono.setText("");
         txtDireccion.setText("");
-    }
-
-    private void showDialog(String mensaje) {
-        Dialog dialogo = new Dialog(this, "Mensaje", true);
-        dialogo.setLayout(new FlowLayout());
-        dialogo.setSize(250, 100);
-        dialogo.add(new Label(mensaje));
-        Button ok = new Button("OK");
-        ok.addActionListener(e -> dialogo.setVisible(false));
-        dialogo.add(ok);
-        dialogo.setLocationRelativeTo(this);
-        dialogo.setVisible(true);
     }
 }

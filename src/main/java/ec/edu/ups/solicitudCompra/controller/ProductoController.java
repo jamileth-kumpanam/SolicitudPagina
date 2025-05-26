@@ -1,44 +1,36 @@
 package ec.edu.ups.solicitudCompra.controller;
 
 import ec.edu.ups.solicitudCompra.models.Producto;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ProductoController {
-
-    private final List<Producto> listaProductos;
+    private List<Producto> productos;
 
     public ProductoController() {
-        this.listaProductos = new ArrayList<>();
+        productos = new ArrayList<>();
     }
 
     public void agregarProducto(Producto producto) {
-        if (producto != null) {
-            listaProductos.add(producto);
-            System.out.println("Producto agregado: " + producto);
-        }
+        productos.add(producto);
     }
 
     public Producto buscarPorId(String id) {
-        for (Producto producto : listaProductos) {
-            if (producto.getId().equalsIgnoreCase(id)) {
-                return producto;
-            }
+        for (Producto p : productos) {
+            if (p.getId().equals(id)) return p;
         }
         return null;
     }
 
     public List<Producto> buscarPorNombre(String nombre) {
-        return listaProductos.stream()
+        return productos.stream()
                 .filter(p -> p.getNombre().equalsIgnoreCase(nombre))
                 .collect(Collectors.toList());
     }
 
     public List<Producto> listarProductos() {
-        return new ArrayList<>(listaProductos);
+        return new ArrayList<>(productos);
     }
 }
-
 

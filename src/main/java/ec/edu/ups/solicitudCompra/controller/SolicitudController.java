@@ -5,38 +5,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SolicitudController {
-
-    private List<SolicitudCompra> listaSolicitudes;
+    private List<SolicitudCompra> solicitudes;
 
     public SolicitudController() {
-        listaSolicitudes = new ArrayList<>();
+        solicitudes = new ArrayList<>();
     }
 
     public void agregarSolicitud(SolicitudCompra solicitud) {
-        listaSolicitudes.add(solicitud);
+        solicitudes.add(solicitud);
     }
 
     public SolicitudCompra buscarPorNumero(String numero) {
-        for (SolicitudCompra solicitud : listaSolicitudes) {
-            if (solicitud.getNumero().equalsIgnoreCase(numero)) {
-                return solicitud;
-            }
+        for (SolicitudCompra s : solicitudes) {
+            if (s.getNumero().equals(numero)) return s;
         }
         return null;
     }
 
     public List<SolicitudCompra> listarSolicitudes() {
-        return listaSolicitudes;
+        return new ArrayList<>(solicitudes);
     }
 
-    public void actualizarEstado(SolicitudCompra solicitudActualizada) {
-        for (int i = 0; i < listaSolicitudes.size(); i++) {
-            if (listaSolicitudes.get(i).getNumero().equalsIgnoreCase(solicitudActualizada.getNumero())) {
-                listaSolicitudes.set(i, solicitudActualizada);
+    public void actualizarEstado(SolicitudCompra solicitud) {
+        for (SolicitudCompra s : solicitudes) {
+            if (s.getNumero().equals(solicitud.getNumero())) {
+                s.setEstado(solicitud.getEstado());
                 break;
             }
         }
     }
 }
-
 

@@ -21,9 +21,7 @@ public class MenuBuscarSolicitudNumero extends Frame {
     private ProductoController productoController;
     private SolicitudController solicitudController; // <-- agregar referencia
 
-    public MenuBuscarSolicitudNumero(ProveedorController proveedorController,
-                                     ProductoController productoController,
-                                     SolicitudController solicitudController) { // <-- recibe SolicitudController
+    public MenuBuscarSolicitudNumero(SolicitudController solicitudController) { // <-- recibe SolicitudController
         this.proveedorController = proveedorController;
         this.productoController = productoController;
         this.solicitudController = solicitudController;

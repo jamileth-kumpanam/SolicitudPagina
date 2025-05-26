@@ -5,28 +5,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProveedorController {
-
-    private List<Proveedor> listaProveedores;
+    private List<Proveedor> proveedores;
 
     public ProveedorController() {
-        listaProveedores = new ArrayList<>();
+        proveedores = new ArrayList<>();
     }
 
     public void agregarProveedor(Proveedor proveedor) {
-        listaProveedores.add(proveedor);
+        proveedores.add(proveedor);
     }
 
     public Proveedor buscarPorId(String id) {
-        for (Proveedor proveedor : listaProveedores) {
-            if (proveedor.getId().equalsIgnoreCase(id)) {
-                return proveedor;
-            }
+        for (Proveedor p : proveedores) {
+            if (p.getId().equals(id)) return p;
         }
         return null;
     }
 
     public List<Proveedor> listarProveedores() {
-        return listaProveedores;
+        return new ArrayList<>(proveedores);
     }
 }
-
